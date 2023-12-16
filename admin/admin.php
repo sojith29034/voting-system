@@ -9,7 +9,7 @@
 </head>
 <body>
     <?php
-    include("connect.php");
+    include("../common/connect.php");
     // include 'newcand.php';
     // include 'newcandidate.php';
     ?>
@@ -33,10 +33,10 @@
         <h1 class="admin">Welcome back, Administrator</h1>
         <div class="admin-controls">
             <!-- <a href="newcandidate.php">Add New Candidate</a> -->
-            <a href="newcandidate.php">Add New Candidate</a>
+            <a href="../admin/newcandidate.php">Add New Candidate</a>
             <a href="" style="background: green;">Start Voting</a>
         </div>
-        <a class="logout" href="logout.php">Logout</a>
+        <a class="logout" href="../common/logout.php">Logout</a>
     </div>
     <hr>
 
@@ -76,7 +76,7 @@
         else{
            ?>
             <tr>
-                <td colspan="5">No candidates added. <a href="./newcandidate.php">Add New Candidate now</a>.</td>
+                <td colspan="5">No candidates added. <a href="../admin/newcandidate.php">Add New Candidate now</a>.</td>
             </tr>
            <?php
         }

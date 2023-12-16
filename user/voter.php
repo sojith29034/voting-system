@@ -1,6 +1,6 @@
 <?php
-include("./connect.php");
-include("navbar.php");
+include("../common/connect.php");
+include("../common/navbar.php");
 ?>
 <head><link rel="stylesheet" href="voter.css"></head>
 

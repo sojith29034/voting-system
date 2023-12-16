@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./common/style.css">
 
     <style>
         img.logo{
@@ -18,9 +18,9 @@
     </style>
 </head>
 <body>
-    <img src="./bg.jpg" alt="FCRIT" class="bg">
-    <img src="./logo.png" alt="FCRIT" class="logo">
-    <form action="action.php" method="post">
+    <img src="./assets/bg.jpg" alt="FCRIT" class="bg">
+    <img src="./assets/logo.png" alt="FCRIT" class="logo">
+    <form action="./common/action.php" method="post">
         <h1>LOGIN</h1>
 
         <?php

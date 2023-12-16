@@ -1,5 +1,5 @@
 <?php
-include("./connect.php");
+include("../common/connect.php");
 
 session_start();
 
@@ -64,9 +64,9 @@ if(isset($_SESSION['id']) &&isset($_SESSION['uname']))
     <div class="nav">
         <h1 class="user">Hello <?=$_SESSION['uname']?></h1>
         <div class="user-btns">
-            <!-- <a class="userHome" href="user.php">Home</a> -->
-            <!-- <a class="adminHome" href="user.php">Home</a> -->
-            <a class="logout" href="logout.php">Logout</a>
+            <a class="userHome" href="../user/user.php">Back</a>
+            <a class="adminHome" href="../admin/admin.php">Back</a>  
+            <a class="logout" href="../common/logout.php">Logout</a>
         </div>
     </div>
     <hr>

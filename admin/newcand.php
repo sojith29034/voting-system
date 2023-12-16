@@ -23,7 +23,7 @@ else{
     $stmt->bind_param("ssss",$name, $dept, $post, $detail);
     $stmt->execute();
     echo "Saved Successfully.";
-    header("Location:admin.php");
+    header("Location:../admin/admin.php");
     exit();
     $stmt->close();
     $conn->close();

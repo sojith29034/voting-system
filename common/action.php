@@ -33,11 +33,11 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
     $pwd = validate($_POST["password"]);
 
     if(empty($uid)){
-        header("Location:login.php?error=User ID Required.");
+        header("Location:../login.php?error=User ID Required.");
         exit();
     }
     else if(empty($pwd)){
-        header("Location:login.php?error=Password Required.");
+        header("Location:../login.php?error=Password Required.");
         exit();
     }
     else{
@@ -49,13 +49,13 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
             $row = mysqli_fetch_assoc($result);
             
             if($row['id']=='admin' && $row['pw']=='admin'){
-                header("Location:admin.php");
+                header("Location:../admin/admin.php");
                 exit();
             }
             if($row['id']==$uid && $row['pw']==$pwd){
                 $_SESSION['uname']=$row['uname'];
                 $_SESSION['id']=$row['id'];
-                header("Location:voter.php");
+                header("Location:../user/user.php");
                 exit();
             }
             // echo '<br>Logged in to ID ';
@@ -64,18 +64,18 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
             // print_r ($row);
             // exit();
             else{
-                header("Location:login.php?error=Incorrect User ID or Password.");
+                header("Location:../login.php?error=Incorrect User ID or Password.");
                 exit();
             }
         }
         else{
-            header("Location:login.php?error=Incorrect User ID or Password.");
+            header("Location:../login.php?error=Incorrect User ID or Password.");
             exit();
         }
     }
 }
 else{
-    header("Location:login.php");
+    header("Location:../login.php");
     exit();
 }
 ?>

@@ -47,7 +47,7 @@
     </style>
 </head>
 <body>
-    <form action="newcand.php" method="post">
+    <form action="../admin/newcand.php" method="post">
         <h1>Add New Candidate Details</h1>
         <div class="basic_info">
             <input type="text" name="name" id="name" placeholder="Enter Candidate's Name" autofocus required>
