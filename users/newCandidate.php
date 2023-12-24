@@ -25,7 +25,8 @@ if(isset($_SESSION['id']))
               <h3 class="text-center">Nominee Application Form</h3>
             </div>
             <div class="card-body">
-              <form action="" method="post" enctype="multipart/form-data">
+
+              <form action="../common/formActions.php" method="post" enctype="multipart/form-data">
 
                 <div class="card">
                   <div class="card-header">
@@ -35,18 +36,19 @@ if(isset($_SESSION['id']))
                   <div class="card-body row">
                     <div class="col-md-6">
                       <label for="name" class="form-label">Name of Nominee:</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter Nominee's Name" autofocus required>
+                        <input type="text" name="name" id="name" class="form-control" 
+                          placeholder="Enter Nominee's Name" autofocus >
                     </div>
                     <div class="col-6">
                       <label for="pfp" class="form-label">Insert Image of Nominee(face visible)</label>
-                        <input type="file" name="pfp" id="pfp" class="form-control" required>
+                        <input type="file" name="pfp" id="pfp" class="form-control" >
                     </div>
                   </div>
 
                   <div class="card-body row">
                     <div class="col-md-6">
                       <label for="post" class="form-label">Nominee for the Position:</label>    
-                        <select id="post" name="post" class="form-select" required>
+                        <select id="post" name="post" class="form-select" >
                           <option value="default">Select Position</option>
                           <option value="General Secretary">General Secretary</option>
                           <option value="Joint Secretary">Joint Secretary</option>
@@ -56,7 +58,7 @@ if(isset($_SESSION['id']))
                     </div>
                     <div class="col-md-6">
                       <label for="dept" class="form-label">Department of Nominee:</label>
-                        <select id="dept" name="dept" class="form-select" required>
+                        <select id="dept" name="dept" class="form-select" >
                           <option value="default">Select Nominee's Department</option>
                           <option value="Computer Department">Computer Department</option>
                           <option value="IT Department">IT Department</option>
@@ -70,7 +72,7 @@ if(isset($_SESSION['id']))
                   <div class="card-body row">
                     <div class="col-md-12">
                       <label for="nomiReason" class="form-label">State why you should be considered as a candidate for the above selected position: </label>
-                        <textarea name="nomiReason" id="nomiReason" class="form-control" row="2" style="resize: none;" placeholder="Brief you reason . . ."  required></textarea>
+                        <textarea name="nomiReason" id="nomiReason" class="form-control" row="2" style="resize: none;" placeholder="Brief you reason . . ."  ></textarea>
                     </div>
                   </div>
                 </div>
@@ -84,42 +86,65 @@ if(isset($_SESSION['id']))
                   <div class="card-body row">
                     <div class="col-md-6">
                       <label for="cgpa" class="form-label">Average CGPA:</label>
-                        <input type="text" name="cgpa" id="cgpa" class="form-control" placeholder="Enter CGPA" required>
+                        <input type="text" name="cgpa" id="cgpa" class="form-control" placeholder="Enter CGPA" >
                         
                       <label for="achieve" class="form-label mt-3">Experiences and Achievements: </label>
                         <textarea name="achieve" id="achieve" class="form-control" row="3" style="resize: none;" 
-                        placeholder="State your co-curricular and extracurricular achievements . . ."  required></textarea>
+                        placeholder="State your co-curricular and extracurricular achievements . . ."  ></textarea>
                     </div>
                     <div class="col-md-6">
                       <label for="club" class="form-label">Club Participation: </label>
                         <textarea name="club" id="club" class="form-control" row="3" style="resize: none;" 
-                          placeholder="Brief your contribution to the club activities . . ."  required></textarea>
+                          placeholder="Brief your contribution to the club activities . . ."  ></textarea>
 
                       <label for="cert" class="form-label mt-3">Certificates</label>
-                        <input type="file" name="cert" id="cert" class="form-control" required>
+                        <input type="file" name="cert" id="cert" class="form-control" >
                     </div>
                   </div>
 
                   <div class="card-body row">
                     <div class="col-md-12">
-                      <label for="details" class="form-label">Nominee Insights: </label>
-                        <textarea name="details" id="details" class="form-control" row="3" style="resize: none;" 
-                        placeholder="State your motto and elaborate on your reason for participating in the elections as a candidate . . ."  required></textarea>
+                      <label for="detail" class="form-label">Nominee Insights: </label>
+                        <textarea name="detail" id="detail" class="form-control" row="3" style="resize: none;" 
+                        placeholder="State your motto and elaborate on your reason for participating in the elections as a candidate . . ."  ></textarea>
                     </div>
                   </div>
                 </div>
 
                 <div class="card-body text-center mt-3">
                   <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelForm">Cancel</button>
-                  <button type="button" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitForm">Submit</button>
+                </div>
+
+
+                <!-- Submit Form Modal -->
+                <div class="modal fade" id="submitForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Submit Nominee Application</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Confirm submission of Nominee Application. Are you sure you want to submit?<br>
+                        Click on <strong>'Yes, Submit'</strong> to submit the Application Form.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success" name="submit">Yes, Submit</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
               </form>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+
 
 
     <!-- Cancel Form Submission Modal -->
@@ -131,11 +156,12 @@ if(isset($_SESSION['id']))
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Your application has not yet been submitted. Are you sure you want to leave?
+            Your application has not yet been submitted. Are you sure you want to leave?<br>
+            Click on <strong>'Close'</strong> to continue filling the Application Form.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="candidate.php" class="btn btn-danger">Don't Submit</a>
+            <a href="nominee.php" class="btn btn-danger">Cancel Submission</a>
           </div>
         </div>
       </div>

@@ -38,12 +38,14 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
                 $_SESSION['uname']=$row['uname'];
                 $_SESSION['id']=$row['id'];
                 $_SESSION['notification']="Logged in Successfully";
-                header("Location:../admin/dashboard.php");
+                header("Location:../admin/admin.php");
                 exit();
             }
             if($row['id']==$uid && $row['pw']==$pwd){
                 $_SESSION['uname']=$row['uname'];
                 $_SESSION['id']=$row['id'];
+                $_SESSION['voteStatus']="notVoted";
+                $candStatus="notSubmitted";
                 $_SESSION['notification']="Logged in Successfully";
                 header("Location:../users/user.php");
                 exit();

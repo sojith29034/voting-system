@@ -6,6 +6,8 @@ require 'connect.php';
   <div class="container-fluid">
     <h1 class="navbar-brand text-light">Hello <?=$_SESSION['uname']?></h1>
 
-    <a href="../common/logout.php" class="btn btn-light">Logout</a>
+    <div class="btns">
+      <a href="../common/logout.php" class="btn btn-light">Logout</a>
+    </div>
   </div>
 </nav>

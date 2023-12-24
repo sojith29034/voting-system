@@ -5,6 +5,7 @@ session_start();
 
 if(isset($_SESSION['id']))
 {
+// require '../common/postLogin.php';
 include '../common/navbar.php';
 ?>
 
@@ -13,25 +14,28 @@ include '../common/navbar.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Candidate | <?=$_SESSION['uname']?></title>
+    <title>Nominee Login | <?=$_SESSION['uname']?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-5">
-                <div class="card mb-3">
-                    <div class="card-header"><h5>Candidate Application</h5></div>
-                    <div class="card-body">
-                        <!-- <h5 class="card-title">Candidate Application</h5> -->
-                        <p class="card-text">To apply as a nominee, firstly note the criterias to stand as mentioned 
-                        
-                        <a type="button" class="link-underline-primary" data-bs-toggle="modal" data-bs-target="#criteria">here</a>
-                        , then proceed to fill the <strong>Nominee Application Form</strong>.</p>
-                        
-                        <a href="newCandidate.php" class="btn btn-primary">Application Form</a>
-                    </div>
+
+              <!---------------------------- Before Submission ---------------------------->
+              <div class="card mb-3">
+                <div class="card-header"><h5>Nominee Application</h5></div>
+                <div class="card-body">
+                  <p class="card-text">To apply as a nominee, firstly note the criterias to stand as mentioned 
+                  
+                  <a type="button" class="link-underline-primary" data-bs-toggle="modal" data-bs-target="#criteria">here</a>
+                  , then proceed to fill the <strong>Nominee Application Form</strong>.</p>
+                  
+                  <a href="newCandidate.php" class="btn btn-primary">Application Form</a>
                 </div>
+              </div>
+
+
             </div>
         </div>
     </div>

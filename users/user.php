@@ -49,7 +49,7 @@ include '../common/navbar.php';
 
             <h3 class="text-center">What is your role?</h3>
             <div class="btns text-center">
-                <a href="candidate.php" class="btn btn-danger mx-2 my-4">I am a Candidate</a>
+                <a href="nominee.php" class="btn btn-danger mx-2 my-4">I am a Candidate</a>
                 <a href="voter.php" class="btn btn-success mx-2 my-4">I am a Voter</a>
             </div>
         </div>
@@ -58,10 +58,10 @@ include '../common/navbar.php';
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mt-5">
+                    <div class="card my-5">
                         <div class="card-header text-center"><h3>Campaigns</h3></div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row my-5">
                                 <div class="col-6">Hello</div>
                                 <div class="col-4">Hello</div>
                                 <div class="col-2">Hello</div>
