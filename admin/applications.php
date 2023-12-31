@@ -1,5 +1,6 @@
 <?php
 require '../common/connect.php';
+require '../common/links.php';
 
 if(($_SESSION['id'] == 'admin'))
 {
@@ -23,12 +24,12 @@ if(($_SESSION['id'] == 'admin'))
           <div class="card-body">
             <table class="table table-striped align-middle">
               <thead class="my-2">
-                <tr>
+                <tr class="text-center">
                   <th>Sr. No.</th>
                   <th>Name of Nominee</th>
                   <th>Department of Nominee</th>
                   <th>Nominee Post</th>
-                  <!-- <th>Status</th> -->
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -44,11 +45,23 @@ if(($_SESSION['id'] == 'admin'))
                     {
                 ?>
 
-                <tr>
+                <tr class="text-center">
                     <td><?=$i?></td>
                     <td><?=$nominee['name']?></td>
                     <td><?=$nominee['dept']?></td>
                     <td><?=$nominee['post']?></td>
+                    <td 
+                      <?php if ($nominee['status'] == 'accepted' || $nominee['status'] == 'Accepted'): ?>
+                        class="text-success"
+                      <?php elseif ($nominee['status'] == 'rejected' || $nominee['status'] == 'Rejected'): ?>
+                        class="text-danger"
+                      <?php elseif ($nominee['status'] == 'pending' || $nominee['status'] == 'Pending'): ?>
+                        class="text-warning"
+                      <?php endif; ?>
+                    >
+                      <?=$nominee['status']?>
+                    </td>
+
                     <td>
                         <a href="#<?=$nominee['name']?>" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nominee<?=$i?>">View</a>
                                       
@@ -61,28 +74,47 @@ if(($_SESSION['id'] == 'admin'))
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="card">
+                                        <div class="card text-start">
                                             <div class="card-body">
-                                              <div class="row">
+                                              <div class="row align-middle">
                                                 <div class="col-md-6">
-                                                  <label for="name" class="form-label">Name of Nominee:</label>
+                                                  <label class="form-label">Name of Nominee:</label>
                                                     <p class="form-control"><?=$nominee['name']?></p>
-                                                  <label for="name" class="form-label">Department of Nominee:</label>
+                                                  <label class="form-label">Department of Nominee:</label>
                                                     <p class="form-control"><?=$nominee['dept']?></p>
-                                                  <label for="name" class="form-label">Name of Nominee:</label>
-                                                    <p class="form-control"><?=$nominee['name']?></p>
+                                                  <label class="form-label">Average CGPA:</label>
+                                                    <p class="form-control"><?=$nominee['cgpa']?></p>
+                                                  <label class="form-label">Nominee for the Position of:</label>
+                                                    <p class="form-control"><?=$nominee['post']?></p>
                                                 </div>
-                                                <div class="col-6">
-                                                  <label for="pfp" class="form-label">Insert Image of Nominee(face visible)</label>
-                                                    <img src="<?=$nominee['pfp']?>" alt="<?=$nominee['pfp']?>" class="form-control img-thumbnail rounded" >
+                                                <div class="col-6 d-flex align-items-center justify-content-center">
+                                                  <img src="<?=$nominee['pfp']?>" alt="<?=$nominee['pfp']?>" class="pfp" >
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-12">
+                                                  <label class="form-label">Reason to nominate themselves for this position:</label>
+                                                    <p class="form-control"><?=$nominee['reason']?></p>
+                                                  <label class="form-label">Insights on Nominee:</label>
+                                                    <p class="form-control"><?=$nominee['detail']?></p>
+                                                  <label class="form-label">Club Participation:</label>
+                                                    <p class="form-control"><?=$nominee['club']?></p>
+                                                  <label class="form-label">Experiences and Achievements:</label>
+                                                    <p class="form-control"><?=$nominee['achieve']?></p>
+                                                  <img src="<?=$nominee['cert']?>" alt="<?=$nominee['cert']?>" class="cert" >
                                                 </div>
                                               </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    <div class="modal-footer justify-content-center">
+                                        <form action="../common/formActions.php" method="GET">
+                                            <!-- Assuming 'name' is the only parameter you need -->
+                                            <input type="hidden" name="name" value="<?=$nominee['name']?>">
+
+                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=R" class="btn btn-danger">Reject</a>
+                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=A" class="btn btn-success">Accept</a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +128,7 @@ if(($_SESSION['id'] == 'admin'))
                   }
                   else{ 
                     echo "<div class='alert alert-warning' role='alert'>
-                        No Events added yet.
+                        No Applications Submitted.
                         </div>";
                   }
                 ?>
@@ -111,6 +143,16 @@ if(($_SESSION['id'] == 'admin'))
   </body>
 </html>
 
+<style>
+  .pfp{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    padding: 5px;
+    border: 2px solid gray;
+    object-fit: cover;
+  }
+</style>
 
 <?php
 }

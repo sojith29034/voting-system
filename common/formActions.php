@@ -9,54 +9,89 @@ if(isset($_SESSION['id']))
 
 
 <?php
-if(isset($_POST['submit'])){
-    $name = mysqli_real_escape_string($conn,$_POST['name']);
-    $pfp = mysqli_real_escape_string($conn,$_FILES['pfp']);
-    $post = mysqli_real_escape_string($conn,$_POST['post']);
-    $dept = mysqli_real_escape_string($conn,$_POST['dept']);
-    $reason = mysqli_real_escape_string($conn,$_POST['nomiReason']);
-    $cgpa = mysqli_real_escape_string($conn,$_POST['cgpa']);
-    $achieve = mysqli_real_escape_string($conn,$_POST['achieve']);
-    $club = mysqli_real_escape_string($conn,$_POST['club']);
-    $cert = mysqli_real_escape_string($conn,$_FILES['cert']);
-    $detail = mysqli_real_escape_string($conn,$_POST['detail']);
-    
-    $ext=array('jpeg','jpg','png');
+if (isset($_POST['submit'])) {
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $pfp = $_FILES['pfp'];
+    $post = mysqli_real_escape_string($conn, $_POST['post']);
+    $dept = mysqli_real_escape_string($conn, $_POST['dept']);
+    $reason = mysqli_real_escape_string($conn, $_POST['nomiReason']);
+    $cgpa = mysqli_real_escape_string($conn, $_POST['cgpa']);
+    $achieve = mysqli_real_escape_string($conn, $_POST['achieve']);
+    $club = mysqli_real_escape_string($conn, $_POST['club']);
+    $cert = $_FILES['cert'];
+    $detail = mysqli_real_escape_string($conn, $_POST['detail']);
+    $status = "Pending";
 
-    $pfpName=$pfp['name'];
-    $pfp_separate=explode('.',$pfpName);
-    $pfp_ext=strtolower(end($pfp_separate));
-    echo $pfp_ext;
+    // File type validation
+    $allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
-    $certName=$cert['name'];
-    $cert_separate=explode('.',$certName);
-    $cert_ext=strtolower(end($cert_separate));
-    echo $cert_ext;
+    if (!empty($pfp['tmp_name']) && !empty($cert['tmp_name'])) {
+        $pfpMimeType = mime_content_type($pfp['tmp_name']);
+        $certMimeType = mime_content_type($cert['tmp_name']);
 
-    if(in_array($pfp_ext,$ext) && in_array($cert_ext,$ext)){
-        $pfp_upload='../assets/pfp/'.$pfpName;
-        move_uploaded_file($pfp['tmp_name'],$pfp_upload);
+        if (in_array($pfpMimeType, $allowedImageTypes) && in_array($certMimeType, $allowedImageTypes)) {
+            $pfp_upload = '../assets/pfp/' . $pfp['name'];
+            move_uploaded_file($pfp['tmp_name'], $pfp_upload);
 
-        $cert_upload='../assets/certificate/'.$certName;
-        move_uploaded_file($cert['tmp_name'],$cert_upload);
+            $cert_upload = '../assets/certificate/' . $cert['name'];
+            move_uploaded_file($cert['tmp_name'], $cert_upload);
 
-        $query = "INSERT INTO `candidates` (`name`, `pfp`, `dept`, `post`, `reason`, `cgpa`, `achieve`, `club`, `cert`, `detail`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "ssssssssss", $name, $pfp_upload, $dept, $post, $reason, $cgpa, $achieve, $club, $cert_upload, $detail);
-        $run_query = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+            $query = "INSERT INTO `candidates` (`name`, `pfp`, `dept`, `post`, `reason`, `cgpa`, `achieve`, `club`, `cert`, `detail`, `status`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+            $stmt = mysqli_prepare($conn, $query);
+            mysqli_stmt_bind_param($stmt, "sssssssssss", $name, $pfp_upload, $dept, $post, $reason, $cgpa, $achieve, $club, $cert_upload, $detail, $status);
 
-        if ($run_query) {
-            echo "Profile Updated Successfully!";
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Profile created Successfully!";
+            } else {
+                echo "Error: " . mysqli_stmt_error($stmt);
+            }
+
+            mysqli_stmt_close($stmt);
         } else {
-            echo "Error: " . mysqli_error($conn);
+            echo "Invalid file types. Please upload JPEG or PNG images.";
         }
+    } else {
+        echo "Error: File not found.";
     }
-
 }
 ?>
+
+
+<?php
+require '../common/connect.php';
+
+if(isset($_GET['status']) && isset($_GET['name'])){
+    $status = ($_GET['status'] == 'A') ? "Accepted" : "Rejected";
+    $name = $_GET['name'];
+
+    if(!$conn){
+        echo "Connection failed";
+    }
+    else{
+        // Use prepared statements to prevent SQL injection
+        $query = "UPDATE candidates SET status=? WHERE name=?";
+        $stmt = mysqli_prepare($conn, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $status, $name);
+            $query_run = mysqli_stmt_execute($stmt);
+
+            if ($query_run) {
+                echo "Operation Successful: $status";
+            } else {
+                echo "Error: " . mysqli_error($conn);
+            }
+
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Error in prepared statement: " . mysqli_error($conn);
+        }
+    }
+}
+?>
+
 
 
 <?php

@@ -16,8 +16,65 @@ if(($_SESSION['id'] == 'admin'))
   </head>
   <body>
 
-    <h1>Dashboard</h1>
+    <h1 class="">Admin Dashboard</h1>
 
+    <div class="row justify-content-evenly">
+      <div class="card text-bg-success" style="width: 20%;">
+        <div class="card-body">
+          <h3 class="card-text">Accepted Applications</h3>
+          <h1 class="card-title text-end">
+            <?php
+            $sql = "SELECT * FROM candidates where status='accepted'";
+            $result = mysqli_query($conn,$sql);
+            $applications = mysqli_num_rows($result);
+            echo $applications;
+            ?>
+          </h1>
+        </div>
+      </div>
+
+      <div class="card text-bg-info" style="width: 20%;">
+        <div class="card-body">
+          <h3 class="card-text">Submitted Applications</h3>
+          <h1 class="card-title text-end">
+            <?php
+            $sql = "SELECT * FROM candidates";
+            $result = mysqli_query($conn,$sql);
+            $applications = mysqli_num_rows($result);
+            echo $applications;
+            ?>
+          </h1>
+        </div>
+      </div>
+
+      <div class="card text-bg-warning" style="width: 20%;">
+        <div class="card-body">
+          <h3 class="card-text">Pending Applications</h3>
+          <h1 class="card-title text-end">
+            <?php
+            $sql = "SELECT * FROM candidates where status='Pending'";
+            $result = mysqli_query($conn,$sql);
+            $applications = mysqli_num_rows($result);
+            echo $applications;
+            ?>
+          </h1>
+        </div>
+      </div>
+
+      <div class="card text-bg-danger" style="width: 20%;">
+        <div class="card-body">
+          <h3 class="card-text">Rejected Applications</h3>
+          <h1 class="card-title text-end">
+            <?php
+            $sql = "SELECT * FROM candidates where status='rejected'";
+            $result = mysqli_query($conn,$sql);
+            $applications = mysqli_num_rows($result);
+            echo $applications;
+            ?>
+          </h1>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>

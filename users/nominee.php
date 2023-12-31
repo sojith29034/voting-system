@@ -31,7 +31,7 @@ include '../common/navbar.php';
                   <a type="button" class="link-underline-primary" data-bs-toggle="modal" data-bs-target="#criteria">here</a>
                   , then proceed to fill the <strong>Nominee Application Form</strong>.</p>
                   
-                  <a href="newCandidate.php" class="btn btn-primary">Application Form</a>
+                  <a href="newNominee.php" class="btn btn-primary">Application Form</a>
                 </div>
               </div>
 
@@ -55,7 +55,7 @@ include '../common/navbar.php';
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="newCandidate.php" class="btn btn-primary">Nominee Application Form</a>
+            <a href="newNominee.php" class="btn btn-primary">Nominee Application Form</a>
           </div>
         </div>
       </div>

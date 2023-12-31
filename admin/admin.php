@@ -31,7 +31,7 @@ include '../common/navbar.php';
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="list-dashboard-list"><?php include 'dashboard.php' ?></div>
                 <div class="tab-pane fade" id="electionStatus" role="tabpanel" aria-labelledby="list-electionStatus-list">Home2</div>
-                <div class="tab-pane fade" id="candDetail" role="tabpanel" aria-labelledby="list-candDetail-list">Home3</div>
+                <div class="tab-pane fade" id="candDetail" role="tabpanel" aria-labelledby="list-candDetail-list"><?php include 'candidates.php' ?></div>
                 <div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="list-applications-list"><?php include 'applications.php' ?></div>
             </div>
         </div>
