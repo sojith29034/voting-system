@@ -1,6 +1,6 @@
  # FCRIT Voting System
 
-This is a PHP-based online voting system for FCRIT (Firodia College of Engineering and Technology). It allows candidates to register and voters to cast their votes. The system also provides a dashboard for administrators to manage the voting process.
+This is a PHP-based online voting system for FCRIT. It allows candidates to register and voters to cast their votes. The system also provides a dashboard for administrators to manage the voting process.
 
 ## Prerequisites
 
