@@ -3,6 +3,8 @@ require '../common/connect.php';
 
 session_start();
 
+require '../common/links.php';
+
 if(isset($_SESSION['id']))
 {
 include '../common/navbar.php';

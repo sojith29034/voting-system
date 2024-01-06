@@ -12,14 +12,13 @@ if(($_SESSION['id'] == 'admin'))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
+      
+    <h1 class="section-title">Admin Dashboard</h1>
 
-    <h1 class="">Admin Dashboard</h1>
-
-    <div class="row justify-content-evenly">
-      <div class="card text-bg-success" style="width: 20%;">
+    <section class="row justify-content-around">
+      <div class="card text-bg-success col-sm-5 col-md col-10 m-1">
         <div class="card-body">
           <h3 class="card-text">Accepted Applications</h3>
           <h1 class="card-title text-end">
@@ -33,7 +32,7 @@ if(($_SESSION['id'] == 'admin'))
         </div>
       </div>
 
-      <div class="card text-bg-info" style="width: 20%;">
+      <div class="card text-bg-info col-sm-5 col-md col-10 m-1">
         <div class="card-body">
           <h3 class="card-text">Submitted Applications</h3>
           <h1 class="card-title text-end">
@@ -47,7 +46,7 @@ if(($_SESSION['id'] == 'admin'))
         </div>
       </div>
 
-      <div class="card text-bg-warning" style="width: 20%;">
+      <div class="card text-bg-warning col-sm-5 col-md col-10 m-1">
         <div class="card-body">
           <h3 class="card-text">Pending Applications</h3>
           <h1 class="card-title text-end">
@@ -61,7 +60,7 @@ if(($_SESSION['id'] == 'admin'))
         </div>
       </div>
 
-      <div class="card text-bg-danger" style="width: 20%;">
+      <div class="card text-bg-danger col-sm-5 col-md col-10 m-1">
         <div class="card-body">
           <h3 class="card-text">Rejected Applications</h3>
           <h1 class="card-title text-end">
@@ -74,12 +73,18 @@ if(($_SESSION['id'] == 'admin'))
           </h1>
         </div>
       </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+      document.querySelector(".open-btn").addEventListener('click', function() {
+        document.querySelector("aside").classList.add('active');
+      });
+      document.querySelector(".sidebar .close-btn").addEventListener('click', function() {
+          document.querySelector("aside").classList.remove('active');
+      });
+    </script>
   </body>
 </html>
-
 
 <?php
 }

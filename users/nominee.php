@@ -3,6 +3,8 @@ require '../common/connect.php';
 
 session_start();
 
+require '../common/links.php';
+
 if(isset($_SESSION['id']))
 {
 // require '../common/postLogin.php';
@@ -20,7 +22,7 @@ include '../common/navbar.php';
   <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-5">
+            <div class="col-12 mt-5">
 
               <!---------------------------- Before Submission ---------------------------->
               <div class="card mb-3">
@@ -55,7 +57,7 @@ include '../common/navbar.php';
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="newNominee.php" class="btn btn-primary">Nominee Application Form</a>
+            <a href="newNominee.php" class="btn btn-primary">Fill Form</a>
           </div>
         </div>
       </div>

@@ -8,34 +8,81 @@ require '../common/connect.php';
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   
         <style>
-        .sidebar {
-        position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 0;
-        width: fit-content;
-        z-index: 1000;
-        display: block;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #f5f5f5;
-        border-right: 1px solid #eee;
+        aside {
+            position: fixed;
+            width: fit-content;
+            top: 50px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            display: block;
+            padding: 20px 0;
+            background-color: #f5f5f5;
+            border-right: 1px solid #eee;
+        }
+        i.fa-times, i.fa-bars{
+            font-size: 24px;
+        }
+        button.toggle-btn{
+            border: none;
+            outline: none;
+            display: none;
+        }
+        @media (max-width: 1000px) {
+            aside {
+                left: -100%;
+                transition: left .5s ease;
+            }
+            aside.active {
+                left: 0;
+            }
+            button.toggle-btn{
+                display: inline;
+            }
+            button.open-btn{
+                position: absolute;
+                top: 72px;
+            }
+            button.close-btn{
+                position: relative;
+                top: 720px;
+            }
+            h1.section-title{
+                position: relative;
+                left: 40px;
+            }
         }
         </style>
     </head>
   <body>
-        <div class="sidebar bg-primary-subtle">
+    
+        <aside class="bg-primary-subtle">  
+            <div class="row">
+                <button class="btn toggle-btn close-btn w-fit"><i class="fas fa-times"></i></button> 
+            </div>        
+
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-primary active" id="list-dashboard-list" data-bs-toggle="list" href="#dashboard" role="tab" aria-controls="list-dashboard">Dashboard</a>
                 <a class="list-group-item list-group-item-primary" id="list-electionStatus-list" data-bs-toggle="list" href="#electionStatus" role="tab" aria-controls="list-electionStatus">Election Status</a>
                 <a class="list-group-item list-group-item-primary" id="list-CandDetail-list" data-bs-toggle="list" href="#CandDetail" role="tab" aria-controls="list-CandDetail">Candidate Details</a>
                 <a class="list-group-item list-group-item-primary" id="list-applications-list" data-bs-toggle="list" href="#applications" role="tab" aria-controls="list-applications">Nominee Applications</a>
             </div>
-        </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        </aside>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector(".open-btn").addEventListener('click', function () {
+            document.querySelector(".sidebar").classList.add('active');
+            });
+
+            document.querySelector(".sidebar .close-btn").addEventListener('click', function () {
+            document.querySelector(".sidebar").classList.remove('active');
+            });
+        });
+    </script>
+
   </body>
 </html>

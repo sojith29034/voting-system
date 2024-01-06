@@ -1,5 +1,6 @@
 <?php
 require 'connect.php';
+require 'links.php';
 
 if(isset($_SESSION['notification'])):
 ?>    

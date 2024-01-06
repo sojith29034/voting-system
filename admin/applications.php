@@ -1,6 +1,5 @@
 <?php
 require '../common/connect.php';
-require '../common/links.php';
 
 if(($_SESSION['id'] == 'admin'))
 {
@@ -12,16 +11,18 @@ if(($_SESSION['id'] == 'admin'))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nominee Applications</title>
+
+    <link rel="stylesheet" href="../common/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-
-    <h1>Nominee Applications</h1>
+      
+      <h1 class="section-title">Nominee Applications</h1>
 
     <div class="row my-5">
       <div class="col-12">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body overflow-x-scroll">
             <table class="table table-striped align-middle">
               <thead class="my-2">
                 <tr class="text-center">
@@ -77,7 +78,10 @@ if(($_SESSION['id'] == 'admin'))
                                         <div class="card text-start">
                                             <div class="card-body">
                                               <div class="row align-middle">
-                                                <div class="col-md-6">
+                                                <div class="col-lg-6 order-lg-2 d-flex align-items-center justify-content-center">
+                                                  <img src="<?=$nominee['pfp']?>" alt="<?=$nominee['pfp']?>" class="pfp" >
+                                                </div>
+                                                <div class="col-lg-6 order-lg-1">
                                                   <label class="form-label">Name of Nominee:</label>
                                                     <p class="form-control"><?=$nominee['name']?></p>
                                                   <label class="form-label">Department of Nominee:</label>
@@ -86,9 +90,6 @@ if(($_SESSION['id'] == 'admin'))
                                                     <p class="form-control"><?=$nominee['cgpa']?></p>
                                                   <label class="form-label">Nominee for the Position of:</label>
                                                     <p class="form-control"><?=$nominee['post']?></p>
-                                                </div>
-                                                <div class="col-6 d-flex align-items-center justify-content-center">
-                                                  <img src="<?=$nominee['pfp']?>" alt="<?=$nominee['pfp']?>" class="pfp" >
                                                 </div>
                                               </div>
                                               <div class="row">
@@ -112,8 +113,8 @@ if(($_SESSION['id'] == 'admin'))
                                             <!-- Assuming 'name' is the only parameter you need -->
                                             <input type="hidden" name="name" value="<?=$nominee['name']?>">
 
-                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=R" class="btn btn-danger">Reject</a>
-                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=A" class="btn btn-success">Accept</a>
+                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=R" class="btn btn-danger mx-5">Reject</a>
+                                            <a href="../common/formActions.php?name=<?=$nominee['name']?>&status=A" class="btn btn-success mx-5">Accept</a>
                                         </form>
                                     </div>
                                 </div>
@@ -139,8 +140,15 @@ if(($_SESSION['id'] == 'admin'))
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+  <script>
+    document.querySelector(".open-btn").addEventListener('click', function() {
+      document.querySelector("aside").classList.add('active');
+    });
+    document.querySelector(".sidebar .close-btn").addEventListener('click', function() {
+        document.querySelector("aside").classList.remove('active');
+    });
+  </script>
+</body>
 </html>
 
 <style>

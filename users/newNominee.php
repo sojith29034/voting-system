@@ -3,6 +3,8 @@ require '../common/connect.php';
 
 session_start();
 
+require '../common/links.php';
+
 if(isset($_SESSION['id']))
 {
 ?>
@@ -14,6 +16,8 @@ if(isset($_SESSION['id']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candidate Application</title>
+
+    <link rel="stylesheet" href="../common/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
@@ -38,24 +42,11 @@ if(isset($_SESSION['id']))
                       <label for="name" class="form-label">Name of Nominee:</label>
                         <input type="text" name="name" id="name" class="form-control" value="<?=$_SESSION['uname']?>" readonly>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                       <label for="pfp" class="form-label">Insert Image of Nominee(face visible)</label>
                         <input type="file" name="pfp" id="pfp" class="form-control" >
                     </div>
-                  </div>
-
-                  <div class="card-body row">
-                    <div class="col-md-6">
-                      <label for="post" class="form-label">Nominee for the Position:</label>    
-                        <select id="post" name="post" class="form-select" >
-                          <option value="default">Select Position</option>
-                          <option value="General Secretary">General Secretary</option>
-                          <option value="Joint Secretary">Joint Secretary</option>
-                          <option value="Sports Secretary">Sports Secretary</option>
-                          <option value="Cultural Secretary">Cultural Secretary</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 order-sm-2 my-3">
                       <label for="dept" class="form-label">Department of Nominee:</label>
                         <select id="dept" name="dept" class="form-select" >
                           <option value="default">Select Nominee's Department</option>
@@ -66,10 +57,17 @@ if(isset($_SESSION['id']))
                           <option value="EXTC Department">EXTC Department</option>
                         </select>
                     </div>
-                  </div>
-
-                  <div class="card-body row">
-                    <div class="col-md-12">
+                    <div class="col-md-6 order-sm-1 my-3">
+                      <label for="post" class="form-label">Nominee for the Position:</label>    
+                        <select id="post" name="post" class="form-select" >
+                          <option value="default">Select Position</option>
+                          <option value="General Secretary">General Secretary</option>
+                          <option value="Joint Secretary">Joint Secretary</option>
+                          <option value="Sports Secretary">Sports Secretary</option>
+                          <option value="Cultural Secretary">Cultural Secretary</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 order-sm-3">
                       <label for="nomiReason" class="form-label">State why you should be considered as a candidate for the above selected position: </label>
                         <textarea name="nomiReason" id="nomiReason" class="form-control" row="2" style="resize: none;" placeholder="Brief you reason . . ."  ></textarea>
                     </div>
@@ -86,23 +84,20 @@ if(isset($_SESSION['id']))
                     <div class="col-md-6">
                       <label for="cgpa" class="form-label">Average CGPA:</label>
                         <input type="text" name="cgpa" id="cgpa" class="form-control" placeholder="Enter CGPA" >
-                        
-                      <label for="achieve" class="form-label mt-3">Experiences and Achievements: </label>
-                        <textarea name="achieve" id="achieve" class="form-control" row="3" style="resize: none;" 
-                        placeholder="State your co-curricular and extracurricular achievements . . ."  ></textarea>
-                    </div>
-                    <div class="col-md-6">
+
                       <label for="club" class="form-label">Club Participation: </label>
                         <textarea name="club" id="club" class="form-control" row="3" style="resize: none;" 
                           placeholder="Brief your contribution to the club activities . . ."  ></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="achieve" class="form-label">Experiences and Achievements: </label>
+                          <textarea name="achieve" id="achieve" class="form-control" row="3" style="resize: none;" 
+                          placeholder="State your co-curricular and extracurricular achievements . . ."  ></textarea>
 
-                      <label for="cert" class="form-label mt-3">Certificates</label>
+                      <label for="cert" class="form-label order-sm-3">Certificate:</label>
                         <input type="file" name="cert" id="cert" class="form-control" >
                     </div>
-                  </div>
-
-                  <div class="card-body row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 order-sm-4">
                       <label for="detail" class="form-label">Nominee Insights: </label>
                         <textarea name="detail" id="detail" class="form-control" row="3" style="resize: none;" 
                         placeholder="State your motto and elaborate on your reason for participating in the elections as a candidate . . ."  ></textarea>
@@ -112,8 +107,8 @@ if(isset($_SESSION['id']))
 
                 <div class="card-body text-center mt-3">
                   <input type="hidden" name="status" id="status" value="Pending">
-                  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelForm">Cancel</button>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitForm">Submit</button>
+                  <button type="button" class="btn btn-secondary mx-5" data-bs-toggle="modal" data-bs-target="#cancelForm">Cancel</button>
+                  <button type="button" class="btn btn-primary mx-5" data-bs-toggle="modal" data-bs-target="#submitForm">Submit</button>
                 </div>
 
 

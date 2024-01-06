@@ -62,7 +62,7 @@
             border-radius: 5px;
             border: none;
         }
-        .btn{   
+        .button{   
             margin-top: 30px;
             padding: 10px 20px;
             background: #1b1b1b;
@@ -71,7 +71,7 @@
             border-radius: 10px;
             border: none;
         }
-        .btn:hover{
+        .button:hover{
             background: #515151;
         }
         p.error{
@@ -114,7 +114,7 @@
         <label for="pw">PASSWORD</label>
         <input type="password" name="password" id="pw" placeholder="Password">
 
-        <button type="submit" class="btn">LOGIN</button>
+        <button type="submit" class="button">LOGIN</button>
     </form>
 </body>
 </html>
