@@ -28,8 +28,6 @@ include '../common/navbar.php';
         </div>
 
 
-        <button class="btn toggle-btn open-btn text-start"><i class="fas fa-bars"></i></button>
-
         <div class="col-lg-10 col-md px-md-5 my-3 tab-content w-md-80 w-sm-100" id="nav-tabContent">
           <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="list-dashboard-list"><?php include 'dashboard.php' ?></div>
           <div class="tab-pane fade" id="electionStatus" role="tabpanel" aria-labelledby="list-electionStatus-list">Home2</div>

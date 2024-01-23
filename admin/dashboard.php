@@ -1,94 +1,65 @@
 <?php
 require '../common/connect.php';
 
-if(($_SESSION['id'] == 'admin'))
-{
+if ($_SESSION['id'] == 'admin') {
 ?>
 
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-  </head>
-  <body>
-      
-    <h1 class="section-title">Admin Dashboard</h1>
+    <title>Admin Dashboard</title>
+</head>
+<body>
 
-    <section class="row justify-content-around">
-      <div class="card text-bg-success col-sm-5 col-md col-10 m-1">
-        <div class="card-body">
-          <h3 class="card-text">Accepted Applications</h3>
-          <h1 class="card-title text-end">
-            <?php
-            $sql = "SELECT * FROM candidates where status='accepted'";
-            $result = mysqli_query($conn,$sql);
-            $applications = mysqli_num_rows($result);
-            echo $applications;
-            ?>
-          </h1>
+    <div class="container mt-1">
+        <h1 class="section-title text-center">Admin Dashboard</h1>
+
+        <div class="row justify-content-around">
+
+        <?php
+          function getTotalApplications($conn)
+          {
+              $sql = "SELECT COUNT(*) as total FROM candidates";
+              $result = mysqli_query($conn, $sql);
+              $row = mysqli_fetch_assoc($result);
+              return $row['total'];
+          }
+
+          function displayCard($title, $status, $color, $conn)
+          {
+              if ($status === 'Total') {
+                  $applications = getTotalApplications($conn);
+              } else {
+                  $sql = "SELECT * FROM candidates WHERE status='$status'";
+                  $result = mysqli_query($conn, $sql);
+                  $applications = mysqli_num_rows($result);
+              }
+
+              echo "<div class='card text-bg-$color col-sm-5 col-md col-10 m-1'>
+                      <div class='card-body'>
+                          <h3 class='card-text'>$title</h3>
+                          <h1 class='card-title text-end'>$applications</h1>
+                      </div>
+                  </div>";
+          }
+
+          // Display cards for different application statuses
+          displayCard('Accepted Applications', 'Accepted', 'success', $conn);
+          displayCard('Total Applications', 'Total', 'primary', $conn);
+          displayCard('Pending Applications', 'Pending', 'warning', $conn);
+          displayCard('Rejected Applications', 'Rejected', 'danger', $conn);
+        ?>
+
+
         </div>
-      </div>
-
-      <div class="card text-bg-info col-sm-5 col-md col-10 m-1">
-        <div class="card-body">
-          <h3 class="card-text">Submitted Applications</h3>
-          <h1 class="card-title text-end">
-            <?php
-            $sql = "SELECT * FROM candidates";
-            $result = mysqli_query($conn,$sql);
-            $applications = mysqli_num_rows($result);
-            echo $applications;
-            ?>
-          </h1>
-        </div>
-      </div>
-
-      <div class="card text-bg-warning col-sm-5 col-md col-10 m-1">
-        <div class="card-body">
-          <h3 class="card-text">Pending Applications</h3>
-          <h1 class="card-title text-end">
-            <?php
-            $sql = "SELECT * FROM candidates where status='Pending'";
-            $result = mysqli_query($conn,$sql);
-            $applications = mysqli_num_rows($result);
-            echo $applications;
-            ?>
-          </h1>
-        </div>
-      </div>
-
-      <div class="card text-bg-danger col-sm-5 col-md col-10 m-1">
-        <div class="card-body">
-          <h3 class="card-text">Rejected Applications</h3>
-          <h1 class="card-title text-end">
-            <?php
-            $sql = "SELECT * FROM candidates where status='rejected'";
-            $result = mysqli_query($conn,$sql);
-            $applications = mysqli_num_rows($result);
-            echo $applications;
-            ?>
-          </h1>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      document.querySelector(".open-btn").addEventListener('click', function() {
-        document.querySelector("aside").classList.add('active');
-      });
-      document.querySelector(".sidebar .close-btn").addEventListener('click', function() {
-          document.querySelector("aside").classList.remove('active');
-      });
-    </script>
+    </div>
   </body>
 </html>
 
 <?php
-}
-else{
+} else {
     header("Location:../login.php");
     exit();
 }
