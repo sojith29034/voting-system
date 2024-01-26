@@ -24,6 +24,11 @@ if(isset($_SESSION['id']))
         width: 150px;
         object-fit: cover;
       }
+      .img-cert{
+        margin: 20px auto;
+        height: 300px;
+        object-fit: cover;
+      }
     </style>
 
 
@@ -112,6 +117,9 @@ if(isset($_SESSION['id']))
 
                       <label for="cert" class="form-label order-sm-3">Update Certificate:</label>
                         <input type="file" name="cert" id="cert" class="form-control" >
+                    </div>
+                    <div class="col-md-12 order-sm-4">
+                      <img src="<?=$nominee['cert']?>" alt="<?=$nominee['cert']?>" class="img-cert img-thumbnail">
                     </div>
                     <div class="col-md-12 order-sm-4">
                       <label for="detail" class="form-label">Nominee Insights: </label>

@@ -16,8 +16,9 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nominee Login | <?= $_SESSION['uname'] ?></title>
 </head>
-<body>
-  <div class="container">
+<body class="position-relative">
+  <?php include '../common/message.php'; ?>
+  <div class="container position-relative z-1">
       <div class="row">
           <div class="col-12 mt-5">
 
