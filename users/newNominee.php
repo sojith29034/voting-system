@@ -39,6 +39,8 @@ if(isset($_SESSION['id']))
 
                   <div class="card-body row">
                     <div class="col-md-6">
+                      <input type="hidden" name="id" id="id" value="<?=$_SESSION['id']?>">
+
                       <label for="name" class="form-label">Name of Nominee:</label>
                         <input type="text" name="name" id="name" class="form-control" value="<?=$_SESSION['uname']?>" readonly>
                     </div>
@@ -69,7 +71,7 @@ if(isset($_SESSION['id']))
                     </div>
                     <div class="col-md-12 order-sm-3">
                       <label for="nomiReason" class="form-label">State why you should be considered as a candidate for the above selected position: </label>
-                        <textarea name="nomiReason" id="nomiReason" class="form-control" row="2" style="resize: none;" placeholder="Brief you reason . . ."  ></textarea>
+                        <textarea name="nomiReason" id="nomiReason" class="form-control" row="2" style="resize: none;" placeholder="Brief you reason . . ."></textarea>
                     </div>
                   </div>
                 </div>

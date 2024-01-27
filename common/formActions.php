@@ -10,6 +10,7 @@ if(isset($_SESSION['id']))
 <!---------------------------------- Submit New Application ----------------------------------->
 <?php
 if (isset($_POST['submit'])) {
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $pfp = $_FILES['pfp'];
     $post = mysqli_real_escape_string($conn, $_POST['post']);
@@ -36,14 +37,14 @@ if (isset($_POST['submit'])) {
             $cert_upload = '../assets/certificate/' . $cert['name'];
             move_uploaded_file($cert['tmp_name'], $cert_upload);
 
-            $query = "INSERT INTO `candidates` (`name`, `pfp`, `dept`, `post`, `reason`, `cgpa`, `achieve`, `club`, `cert`, `detail`, `status`, `attempts`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO `candidates` (`id`, `name`, `pfp`, `dept`, `post`, `reason`, `cgpa`, `achieve`, `club`, `cert`, `detail`, `status`, `attempts`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "sssssssssssi", $name, $pfp_upload, $dept, $post, $reason, $cgpa, $achieve, $club, $cert_upload, $detail, $status, $attempts);
+            mysqli_stmt_bind_param($stmt, "ssssssssssssi", $id, $name, $pfp_upload, $dept, $post, $reason, $cgpa, $achieve, $club, $cert_upload, $detail, $status, $attempts);
 
             if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['notification']="Application submitted Successfully!";
+                $_SESSION['successMessage']="Application submitted Successfully!";
                 header("Location:../users/nominee.php");
             } else {
                 echo "Error: " . mysqli_stmt_error($stmt);
@@ -117,7 +118,7 @@ if (isset($_POST['update'])) {
         mysqli_stmt_bind_param($stmt, 'sssssssss', $post, $dept, $reason, $cgpa, $achieve, $club, $detail, $status, $name);
 
         if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['notification']="Application Updated and resubmitted Successfully!";
+            $_SESSION['successMessage']="Application Updated and resubmitted Successfully!";
             header("Location:../users/nominee.php");
         } else {
             echo "Error: " . mysqli_stmt_error($stmt);
@@ -145,22 +146,24 @@ if (isset($_POST['update'])) {
 if (isset($_GET['status']) && isset($_GET['name'])) {
     $status = ($_GET['status'] == 'A') ? "Accepted" : "Rejected";
     $name = $_GET['name'];
+    $comments = $_GET['comments'];
 
     $attempts = isset($_GET['attempts']) ? $_GET['attempts'] + 1 : 1;
 
     if (!$conn) {
         echo "Connection failed";
     } else {
-        $query = "UPDATE candidates SET status=?, attempts=? WHERE name=?";
+        $query = "UPDATE candidates SET status=?, attempts=?, comments=? WHERE name=?";
         $stmt = mysqli_prepare($conn, $query);
 
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "sis", $status, $attempts, $name);
+            mysqli_stmt_bind_param($stmt, "siss", $status, $attempts, $comments, $name);
             $query_run = mysqli_stmt_execute($stmt);
 
             if ($query_run) {
                 echo "Operation Successful: $status";
-                // header("Location:../admin/applications.php");
+                header("Location:../admin/admin.php#applications");
+                $_SESSION['message']="$name's application has been $status!";
             } else {
                 echo "Error: " . mysqli_error($conn);
             }

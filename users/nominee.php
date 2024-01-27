@@ -41,6 +41,13 @@ if (isset($_SESSION['id'])) {
                                     $attempts = isset($nominee['attempts']) ? $nominee['attempts'] : 0;
                                     if ($attempts < 3) {
                                   ?>
+                                    <?php
+                                        if(!empty($nominee['comments'])):
+                                    ?>
+                                            <div class="alert alert-warning" role="alert"><?=$nominee['comments']?></div>
+                                    <?php
+                                        endif;
+                                    ?>
                                       <h3 class="text-danger">Your Application Form has been rejected.
                                           Application edits left - <?= 3 - $attempts ?></h3>
                                       <a href="editNominee.php?name=<?=$nominee['name']?>" class="btn btn-primary">Edit Application</a>
@@ -50,9 +57,8 @@ if (isset($_SESSION['id'])) {
                                   <?php } ?>
 
                               <?php } else if ($nominee['status'] === "Pending") { ?>
-                                  <h5 class="text-warning">Your Application Form has been submitted. Kindly await for
-                                      Administrator confirmation.</h5>
-                                    <a href="newNominee.php" class="btn btn-primary">View Application</a>
+                                  <h5 class="text-warning">Your Application Form has been submitted. Kindly await for Administrator confirmation.</h5>
+                                    <a href="viewNominee.php?name=<?=$nominee['name']?>" class="btn btn-primary">View Application</a>
                               <?php } ?>
                           </div>
                       </div>

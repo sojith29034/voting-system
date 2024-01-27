@@ -37,7 +37,7 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
             if($row['id']=='admin' && $row['pw']=='admin'){
                 $_SESSION['uname']=$row['uname'];
                 $_SESSION['id']=$row['id'];
-                $_SESSION['notification']="Logged in Successfully";
+                $_SESSION['loginMessage']="Logged in Successfully";
                 header("Location:../admin/admin.php");
                 exit();
             }
@@ -46,7 +46,7 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
                 $_SESSION['id']=$row['id'];
                 $_SESSION['voteStatus']="notVoted";
                 $candStatus="notSubmitted";
-                $_SESSION['notification']="Logged in Successfully";
+                $_SESSION['loginMessage']="Logged in Successfully";
                 header("Location:../users/user.php");
                 exit();
             }

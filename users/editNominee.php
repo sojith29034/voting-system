@@ -15,7 +15,7 @@ if(isset($_SESSION['id']))
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Candidate Application</title>
+    <title>Nominee Application</title>
 
     <style>
       .img-pfp{
