@@ -88,8 +88,8 @@ if(isset($_SESSION['id']))
 
                         <input type="hidden" id="hiddenComments" name="hiddenComments" value="">
                         
-                        <button type="button" class="btn btn-danger mx-5" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
-                        <button type="button" class="btn btn-success mx-5" data-bs-toggle="modal" data-bs-target="#acceptModal">Accept</button>
+                        <button type="button" class="btn btn-danger mx-5" data-bs-toggle="modal" data-bs-target="#rejectModal"><i class="fas fa-times"></i> Reject</button>
+                        <button type="button" class="btn btn-success mx-5" data-bs-toggle="modal" data-bs-target="#acceptModal"><i class="fas fa-check"></i> Accept</button>
 
                         
                         <!-- Reject Application Form Modal -->

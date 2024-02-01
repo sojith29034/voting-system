@@ -10,7 +10,6 @@ if(($_SESSION['id'] == 'admin'))
 include '../common/navbar.php';
 ?>
 
-
 <!doctype html>
 <html lang="en">
   <head>

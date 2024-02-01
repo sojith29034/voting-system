@@ -46,10 +46,10 @@ if ($_SESSION['id'] == 'admin') {
           }
 
           // Display cards for different application statuses
-          displayCard('Accepted Applications', 'Accepted', 'success', $conn);
-          displayCard('Total Applications', 'Total', 'primary', $conn);
-          displayCard('Pending Applications', 'Pending', 'warning', $conn);
-          displayCard('Rejected Applications', 'Rejected', 'danger', $conn);
+          displayCard('<i class="fas fa-check"></i> Accepted Applications', 'Accepted', 'success', $conn);
+          displayCard('<i class="fas fa-envelope-open-text"></i> Total Applications', 'Total', 'primary', $conn);
+          displayCard('<i class="far fa-clock"></i> Pending Applications', 'Pending', 'warning', $conn);
+          displayCard('<i class="fas fa-times"></i> Rejected Applications', 'Rejected', 'danger', $conn);
         ?>
 
 

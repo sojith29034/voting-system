@@ -108,10 +108,10 @@
         <?php
         }
         ?>
-        <label for="id">USER ID</label>
+        <label for="id"><i class="fas fa-portrait"></i> USER ID</label>
         <input type="tel" name="userid" id="id" placeholder="User ID" autofocus>
         <br>
-        <label for="pw">PASSWORD</label>
+        <label for="pw"><i class="fas fa-lock"></i> PASSWORD</label>
         <input type="password" name="password" id="pw" placeholder="Password">
 
         <button type="submit" class="button">LOGIN</button>

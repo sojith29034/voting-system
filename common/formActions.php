@@ -22,6 +22,7 @@ if (isset($_POST['submit'])) {
     $cert = $_FILES['cert'];
     $detail = mysqli_real_escape_string($conn, $_POST['detail']);
     $status = "Pending";
+    $attempts = 0;
 
     // File type validation
     $allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];

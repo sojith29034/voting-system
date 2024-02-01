@@ -62,7 +62,7 @@ if ($_SESSION['id'] == 'admin') {
                                         <?=$nominee['status']?>
                                     </td>
                                     <td>
-                                        <a href="./viewApplicant.php?name=<?=$nominee['name']?>" class="btn btn-primary">View</a>
+                                        <a href="./viewApplicant.php?name=<?=$nominee['name']?>" class="btn btn-primary"><i class="far fa-eye"> </i> View</a>
                                     </td>
                                 </tr>
                                 <?php

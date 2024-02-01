@@ -49,7 +49,7 @@ include '../common/navbar.php';
         <div class="row">
             <h1 class="text-center my-4">Welcome to FCRIT's Online Voting System</h1>
 
-            <h3 class="text-center">What is your role?</h3>
+            <h3 class="text-center">What is your role? <i class="fas fa-user-tag"></i></h3>
             <div class="btns text-center">
                 <a href="nominee.php" class="btn btn-danger mx-2 my-4">I am a Candidate</a>
                 <a href="voter.php" class="btn btn-success mx-2 my-4">I am a Voter</a>

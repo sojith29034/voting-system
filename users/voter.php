@@ -19,7 +19,12 @@ include '../common/navbar.php';
     </head>
     <body>
         <div class="container">
-        <h1 class="section-title text-center mt-4">Candidate Details</h1>
+
+        <form action="../common/voteActions.php" method="post">
+          <div class="row w-100 d-inline-flex justify-content-space-between">
+            <h1 class="section-title mt-4">Candidate List</h1>
+            <button type="submit" class="btn btn-success" name="submitVote">Submit Vote</button>
+          </div>
 
       <?php
         function displayCandidates($position, $conn)
@@ -46,10 +51,17 @@ include '../common/navbar.php';
                   <h5 class='card-title'><?=$nominee['name']?></h5>
                   <p class='card-text'><?=$nominee['dept']?></p>
                   <div class="btns">
-                    <button type="button" class='btn btn-primary m-1 rounded-pill' data-bs-toggle="modal" data-bs-target="#nomineeDetails<?=$nominee['id']?>">Vote</button>
+                    <input class="vote visually-hidden" type="radio" name="<?=$nominee['post']?>" id="<?=$nominee['id']?>" value="<?=$nominee['id']?>">
+                    <!-- <button class='vote btn btn-primary m-1 rounded-pill'> -->
+                      <label class="vote btn text-white m-1 rounded-pill" style="cursor: pointer;" for="<?=$nominee['id']?>">Vote</label>
+                    <!-- </button> -->
                     <button type="button" class='btn btn-outline-primary m-1 rounded-pill' data-bs-toggle="modal" data-bs-target="#nomineeDetails<?=$nominee['id']?>">View</button>
                   </div>
 
+
+
+
+                  <!------------------------------------------ Nominee Details Modal ------------------------------------------>
                   <div class="modal fade" id="nomineeDetails<?=$nominee['id']?>" tabindex="-1"
                     aria-labelledby="nomineeDetailsLabel<?=$nominee['id']?>" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -112,19 +124,6 @@ include '../common/navbar.php';
           }
         }
 
-        // Get distinct positions from the database
-        // $positions_query = "SELECT DISTINCT post FROM candidates";
-        // $positions_result = mysqli_query($conn, $positions_query);
-        
-        // if (!$positions_result) {
-        //   echo "Error: " . mysqli_error($conn);
-        // } else {
-        //   while ($position_row = mysqli_fetch_assoc($positions_result)) {
-            // $position = $position_row['post'];
-            // displayCandidates($position, $conn);
-        //   }
-        // }
-
         
         $position = "General Secretary";
         displayCandidates($position, $conn);
@@ -135,6 +134,8 @@ include '../common/navbar.php';
         $position = "Cultural Secretary";
         displayCandidates($position, $conn);
       ?>
+
+      </form>
     </div>
   </body>
 
@@ -163,6 +164,15 @@ include '../common/navbar.php';
       max-width: 100%;
       height: auto;
       object-fit: cover;
+    }
+
+    input.vote:checked ~ label.vote{
+      background-color: green;
+      border-color: green;
+    }
+    :not(input.vote:checked) ~ label.vote{
+      background-color: red;
+      border-color: red;
     }
   </style>
 </html>
