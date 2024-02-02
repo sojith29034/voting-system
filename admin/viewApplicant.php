@@ -21,7 +21,8 @@ if(isset($_SESSION['id']))
     <link rel="stylesheet" href="../common/style.css">
   </head>
   <body>
-    <div class="container my-5">
+    <div class="container mt-3 mb-5">
+        <a class="btn btn-dark text-end mb-4" href="../admin/admin.php"><i class="fas fa-chevron-left"></i> Go back</a>
         <div class="row">
             <div class="col-12">
             <?php
@@ -83,54 +84,60 @@ if(isset($_SESSION['id']))
 
 
                 <div class="card-footer text-center">
-                    <form action="../common/formActions.php" method="POST">
-                        <!-- <button type="submit" name="comment" class="btn btn-primary mx-auto">Add comment</button> -->
+                    <?php if ($nominee['status'] == 'accepted' || $nominee['status'] == 'Accepted'): ?>
+                        <h2 class="text-success">This nominee application has been accepted.</h2>
+                    <?php elseif ($nominee['status'] == 'rejected' || $nominee['status'] == 'Rejected'): ?>
+                        <h2 class="text-danger">This nominee application has been rejected.</h2>
+                    <?php elseif ($nominee['status'] == 'pending' || $nominee['status'] == 'Pending'): ?>
+                        <form action="../common/formActions.php" method="POST">
+                            <!-- <button type="submit" name="comment" class="btn btn-primary mx-auto">Add comment</button> -->
 
-                        <input type="hidden" id="hiddenComments" name="hiddenComments" value="">
-                        
-                        <button type="button" class="btn btn-danger mx-5" data-bs-toggle="modal" data-bs-target="#rejectModal"><i class="fas fa-times"></i> Reject</button>
-                        <button type="button" class="btn btn-success mx-5" data-bs-toggle="modal" data-bs-target="#acceptModal"><i class="fas fa-check"></i> Accept</button>
+                            <input type="hidden" id="hiddenComments" name="hiddenComments" value="">
+                            
+                            <button type="button" class="btn btn-danger mx-5" data-bs-toggle="modal" data-bs-target="#rejectModal"><i class="fas fa-times"></i> Reject</button>
+                            <button type="button" class="btn btn-success mx-5" data-bs-toggle="modal" data-bs-target="#acceptModal"><i class="fas fa-check"></i> Accept</button>
 
-                        
-                        <!-- Reject Application Form Modal -->
-                        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="rejectLabel">Reject Nominee Application</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to reject <?=$nominee['name']?>'s application?
-                                        <textarea class="form-control bg-warning-subtle my-2" name="comments" id="comments" row="2" 
-                                                style="resize: none;" placeholder="Administrator comments for nominee . . ."></textarea>
-                                    </div>
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <button type="button" class="btn btn-secondary mx-5" data-bs-dismiss="modal">Cancel</button>
-                                        <a href="#" class="btn btn-danger mx-5" onclick="submitForm('R')">Reject</a>
+                            
+                            <!-- Reject Application Form Modal -->
+                            <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="rejectLabel">Reject Nominee Application</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to reject <?=$nominee['name']?>'s application?
+                                            <textarea class="form-control bg-warning-subtle my-2" name="comments" id="comments" row="2" 
+                                                    style="resize: none;" placeholder="Administrator comments for nominee . . ."></textarea>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-secondary mx-5" data-bs-dismiss="modal">Cancel</button>
+                                            <a href="#" class="btn btn-danger mx-5" onclick="submitForm('R')">Reject</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Accept Application Form Modal -->
-                        <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="acceptLabel">Accept Nominee Application</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to accept <?=$nominee['name']?>'s application?
-                                    </div>
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <button type="button" class="btn btn-secondary mx-5" data-bs-dismiss="modal">Cancel</button>
-                                        <a href="#" class="btn btn-success mx-5" onclick="submitForm('A')">Accept</a>
+                            <!-- Accept Application Form Modal -->
+                            <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="acceptLabel">Accept Nominee Application</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to accept <?=$nominee['name']?>'s application?
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-secondary mx-5" data-bs-dismiss="modal">Cancel</button>
+                                            <a href="#" class="btn btn-success mx-5" onclick="submitForm('A')">Accept</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php

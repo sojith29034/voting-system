@@ -7,7 +7,18 @@ require '../common/links.php';
 
 if(isset($_SESSION['id']))
 {
-include '../common/navbar.php';
+  $checkVoteStatus = "SELECT voteStatus FROM `login` WHERE id=?";
+  $run = mysqli_prepare($conn, $checkVoteStatus);
+  mysqli_stmt_bind_param($run, 's', $_SESSION['id']);
+  $result = mysqli_stmt_execute($run);
+  mysqli_stmt_bind_result($run, $voteStatus);
+  mysqli_stmt_fetch($run);
+  mysqli_stmt_close($run);
+  
+  if($voteStatus == 0)
+  {
+  
+    include '../common/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +32,31 @@ include '../common/navbar.php';
         <div class="container">
 
         <form action="../common/voteActions.php" method="post">
-          <div class="row w-100 d-inline-flex justify-content-space-between">
-            <h1 class="section-title mt-4">Candidate List</h1>
-            <button type="submit" class="btn btn-success" name="submitVote">Submit Vote</button>
+          <div class="row">
+              <div class="col-md-6">
+                <h1 class="section-title mt-4">Candidate List</h1>
+              </div>
+              <div class="col-md-6 text-end mt-4">
+                <button type="button" class="btn btn-success" name="submitVote" data-bs-toggle="modal" data-bs-target="#confirmSubmit">Submit Vote</button>
+              </div>
+          </div>
+
+          <!----------------------------------------- Vote Confirmation Modal ----------------------------------------->
+          <div class="modal fade" id="confirmSubmit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmSubmitLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="confirmSubmitLabel">Confirm Vote Submission</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success" name="submitVote">Confirm Submit</button>
+                </div>
+              </div>
+            </div>
           </div>
 
       <?php
@@ -51,10 +84,8 @@ include '../common/navbar.php';
                   <h5 class='card-title'><?=$nominee['name']?></h5>
                   <p class='card-text'><?=$nominee['dept']?></p>
                   <div class="btns">
-                    <input class="vote visually-hidden" type="radio" name="<?=$nominee['post']?>" id="<?=$nominee['id']?>" value="<?=$nominee['id']?>">
-                    <!-- <button class='vote btn btn-primary m-1 rounded-pill'> -->
-                      <label class="vote btn text-white m-1 rounded-pill" style="cursor: pointer;" for="<?=$nominee['id']?>">Vote</label>
-                    <!-- </button> -->
+                    <input class="vote visually-hidden vote-checkbox" type="radio" name="<?=$nominee['post']?>" id="<?=$nominee['name']?>" value="<?=$nominee['id']?>">
+                      <label class="vote btn text-white m-1 rounded-pill" style="cursor: pointer;" for="<?=$nominee['name']?>">Vote</label>
                     <button type="button" class='btn btn-outline-primary m-1 rounded-pill' data-bs-toggle="modal" data-bs-target="#nomineeDetails<?=$nominee['id']?>">View</button>
                   </div>
 
@@ -137,6 +168,26 @@ include '../common/navbar.php';
 
       </form>
     </div>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelector('#confirmSubmit').addEventListener('show.bs.modal', function (event) {
+        var modal = this;
+        var selectedCandidates = document.querySelectorAll('.vote-checkbox:checked');
+        var modalBody = modal.querySelector('.modal-body');
+
+        modalBody.innerHTML = '';
+
+        selectedCandidates.forEach(function(candidate) {
+          var candidateDetails = document.createElement('p');
+          candidateDetails.textContent = "Position: " + candidate.getAttribute('name') + ", Candidate: " + candidate.getAttribute('id');
+          modalBody.appendChild(candidateDetails);
+        });
+      });
+    });
+    </script>
+
   </body>
 
   <style>
@@ -179,6 +230,11 @@ include '../common/navbar.php';
 
 
 <?php
+  }
+  else{
+    header("Location:../users/successVote.php");
+    exit();
+  }
 }
 else{
     header("Location:../login.php");
