@@ -217,11 +217,11 @@ if(isset($_SESSION['id']))
       object-fit: cover;
     }
 
-    input.vote:checked ~ label.vote{
+    .vote:checked + label{
       background-color: green;
       border-color: green;
     }
-    :not(input.vote:checked) ~ label.vote{
+    :not(.vote:checked) + label{
       background-color: red;
       border-color: red;
     }

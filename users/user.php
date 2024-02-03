@@ -29,7 +29,7 @@ include '../common/navbar.php';
         .intro{
             overflow: hidden;
         }
-        img{
+        img.bg{
             height: 100%;
             width: 100%;
             object-fit: cover;
@@ -43,7 +43,7 @@ include '../common/navbar.php';
     </style>
 </head>
   <body>
-    <img src="../assets/bg.jpg" alt="FCRIT">
+    <img src="../assets/bg.jpg" alt="FCRIT" class="bg">
     <?php include '../common/message.php'; ?>
     <div class="intro text-center">
         <div class="row">
@@ -64,9 +64,25 @@ include '../common/navbar.php';
                         <div class="card-header text-center"><h3>Campaigns</h3></div>
                         <div class="card-body">
                             <div class="row my-5">
-                                <div class="col-6">Hello</div>
-                                <div class="col-4">Hello</div>
-                                <div class="col-2">Hello</div>
+                            <?php
+                            $query = "SELECT * FROM campaign";
+                            $query_run = mysqli_query($conn, $query);
+
+                            if (mysqli_num_rows($query_run) > 0) {
+                                foreach ($query_run as $campaign) {
+                            ?>
+                                <div class="<?=$campaign['size']?> position-relative" style="object-fit:cover;">
+                                    <p class="position-absolute text-center fs-2"><?=$campaign['motto']?></p>
+                                    <img src="<?=htmlspecialchars($campaign['campaign'])?>" alt="<?=htmlspecialchars($campaign['campaign'])?>" class="img-fluid" style="object-fit:cover;">
+                                </div>
+                            <?php
+                                }
+                            } else {
+                                echo "<div class='alert alert-warning' role='alert'>
+                                    No Campaigns added.
+                                    </div>";
+                            }
+                            ?>
                             </div>
                         </div>
                     </div>
