@@ -7,6 +7,47 @@ if(isset($_SESSION['id']))
 {
 ?>
 
+<!-- Start Voting -->
+<?php
+if (isset($_POST['startElection'])) {
+    $startElection = "UPDATE login SET voteStatus=1 WHERE id=?";
+    $stmt = mysqli_prepare($conn, $startElection);
+    mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
+    $result = mysqli_stmt_execute($stmt);
+    echo "election started";
+    // header("Location:../users/successVote.php");
+    exit();
+}
+?>
+
+<!-- Stop Voting -->
+<?php
+if (isset($_POST['stopElection'])) {
+    $stopElection = "UPDATE login SET voteStatus=2 WHERE id=?";
+    $stmt = mysqli_prepare($conn, $stopElection);
+    mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
+    $result = mysqli_stmt_execute($stmt);
+    echo "election has stopped";
+    // header("Location:../users/successVote.php");
+    exit();
+}
+?>
+
+<!-- Declare Voting Results -->
+<?php
+if (isset($_POST['declareResults'])) {
+    $declareResults = "UPDATE login SET voteStatus=3 WHERE id=?";
+    $stmt = mysqli_prepare($conn, $declareResults);
+    mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
+    $result = mysqli_stmt_execute($stmt);
+    echo "election has stopped";
+    // header("Location:../users/successVote.php");
+    exit();
+}
+?>
+
+
+
 <?php
 if (isset($_POST['submitVote'])) {
     // add vote to vote table

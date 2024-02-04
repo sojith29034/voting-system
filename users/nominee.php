@@ -34,7 +34,7 @@ if (isset($_SESSION['id'])) {
                           <div class="card-body">
 
                               <?php if ($nominee['status'] === "Accepted") { ?>
-                                  <h3 class="text-success">Your Application Form has been accepted.</h3>
+                                <h3 class="text-success">Your Application Form has been accepted.</h3>
 
                               <?php } else if ($nominee['status'] === "Rejected") { ?>
                                   <?php
@@ -62,7 +62,55 @@ if (isset($_SESSION['id'])) {
                               <?php } ?>
                           </div>
                       </div>
-                      <?php
+                      
+                      <?php 
+                      if ($nominee['status'] === "Accepted"):
+                        $query = "SELECT * FROM campaign WHERE id=?";
+                        $stmt = mysqli_prepare($conn, $query);
+                
+                        if ($stmt) {
+                            mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
+                            mysqli_stmt_execute($stmt);
+                
+                            $result = mysqli_stmt_get_result($stmt);
+                        ?>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card my-5">
+                                                <div class="card-header text-center"><h3>Campaigns</h3></div>
+                                                <div class="card-body">
+                                                    <div class="card col-2 m-2">
+                                                        <a class="btn btn-primary" href="../users/newCampaign.php">
+                                                            Add New Campaign
+                                                        </a>
+                                                    </div>
+                                                <?php
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    $campaign = mysqli_fetch_assoc($result);
+                                                ?>
+                                                    <div class="<?=$campaign['size']?> position-relative" style="object-fit: cover;">
+                                                        <p class="position-absolute text-center fs-2"><?=$campaign['motto']?></p>
+                                                        <img src="<?=htmlspecialchars($campaign['campaign'])?>" alt="<?=htmlspecialchars($campaign['campaign'])?>" class="img-fluid" style="object-fit: cover;">
+                                                    </div>
+                                                <?php
+                                                    } else {
+                                                        echo "<div class='container alert alert-warning' role='alert'>No Campaigns Found.</div>";
+                                                    }
+                                                ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <?php 
+                                    mysqli_stmt_close($stmt);
+                                } else {
+                                    // Handle the case where the prepared statement couldn't be created
+                                    echo "Error preparing statement: " . mysqli_error($conn);
+                                }
+                                endif;
                   }
               } else {
                   ?>
@@ -102,55 +150,6 @@ if (isset($_SESSION['id'])) {
       </div>
   </div>
 
-  
-    <?php
-    if ($nominee['status'] === "Accepted"):
-        $query = "SELECT * FROM campaign WHERE id=?";
-        $stmt = mysqli_prepare($conn, $query);
-
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
-            mysqli_stmt_execute($stmt);
-
-            $result = mysqli_stmt_get_result($stmt);
-    ?>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card my-5">
-                            <div class="card-header text-center"><h3>Campaigns</h3></div>
-                            <div class="card-body">
-                                <div class="card col-2 m-2">
-                                    <a class="btn btn-primary" href="../users/newCampaign.php">
-                                        Add New Campaign
-                                    </a>
-                                </div>
-                            <?php
-                            if (mysqli_num_rows($result) > 0) {
-                                $campaign = mysqli_fetch_assoc($result);
-                            ?>
-                                <div class="<?=$campaign['size']?> position-relative" style="object-fit: cover;">
-                                    <p class="position-absolute text-center fs-2"><?=$campaign['motto']?></p>
-                                    <img src="<?=htmlspecialchars($campaign['campaign'])?>" alt="<?=htmlspecialchars($campaign['campaign'])?>" class="img-fluid" style="object-fit: cover;">
-                                </div>
-                            <?php
-                                } else {
-                                    echo "<div class='container alert alert-warning' role='alert'>No Campaigns Found.</div>";
-                                }
-                            ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    <?php
-        mysqli_stmt_close($stmt);
-    } else {
-        // Handle the case where the prepared statement couldn't be created
-        echo "Error preparing statement: " . mysqli_error($conn);
-    }
-    endif;
-    ?>
 
 </body>
 </html>

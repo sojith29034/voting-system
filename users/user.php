@@ -49,11 +49,42 @@ include '../common/navbar.php';
         <div class="row">
             <h1 class="text-center my-4">Welcome to FCRIT's Online Voting System</h1>
 
+            <?php
+            $query = "SELECT voteStatus FROM `login` WHERE id='admin'";
+            $result = mysqli_query($conn, $query);
+            while ($admin = mysqli_fetch_assoc($result)) {
+                // Apply for candidate
+                if($admin['voteStatus']==0){
+            ?>
             <h3 class="text-center">What is your role? <i class="fas fa-user-tag"></i></h3>
             <div class="btns text-center">
                 <a href="nominee.php" class="btn btn-danger mx-2 my-4">I am a Candidate</a>
+                <a class="btn btn-success mx-2 my-4 disabled" role="button" aria-disabled="true">I am a Voter</a>
+            </div>
+            <?php
+                }
+                else if($admin['voteStatus']==1 || $admin['voteStatus']==2){
+                    // Election has started
+                    if($admin['voteStatus']==1){
+            ?>
+            <h3 class="text-center">What is your role? <i class="fas fa-user-tag"></i></h3>
+            <div class="btns text-center">
+                <a class="btn btn-danger mx-2 my-4 disabled" role="button" aria-disabled="true">I am a Candidate</a>
                 <a href="voter.php" class="btn btn-success mx-2 my-4">I am a Voter</a>
             </div>
+            <?php
+                    } // Election has stopped
+                    else if($admin['voteStatus']==2){
+            ?>
+            <h3 class="text-center">What is your role? <i class="fas fa-user-tag"></i></h3>
+            <div class="btns text-center">
+                <a class="btn btn-danger mx-2 my-4 disabled" role="button" aria-disabled="true">I am a Candidate</a>
+                <a class="btn btn-success mx-2 my-4 disabled" role="button" aria-disabled="true">I am a Voter</a>
+            </div>
+            <h2>Results will be declared soon!</h2>
+            <?php
+                    }
+            ?>
         </div>
     </div>
     <main>
@@ -90,6 +121,17 @@ include '../common/navbar.php';
             </div>
         </div>
     </main>
+            <?php
+                } // Results are declared
+                else if($admin['voteStatus']==3){
+            ?>
+            <div class="container col-12">
+                <div class="card"></div>
+            </div>
+            <?php
+                }
+            }
+            ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -90,7 +90,6 @@ if(isset($_SESSION['id']))
                         <h2 class="text-danger">This nominee application has been rejected.</h2>
                     <?php elseif ($nominee['status'] == 'pending' || $nominee['status'] == 'Pending'): ?>
                         <form action="../common/formActions.php" method="POST">
-                            <!-- <button type="submit" name="comment" class="btn btn-primary mx-auto">Add comment</button> -->
 
                             <input type="hidden" id="hiddenComments" name="hiddenComments" value="">
                             
