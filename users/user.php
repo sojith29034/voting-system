@@ -125,9 +125,50 @@ include '../common/navbar.php';
                 } // Results are declared
                 else if($admin['voteStatus']==3){
             ?>
-            <div class="container col-12">
-                <div class="card"></div>
+
+
+            <?php
+            // Assuming you have a table named 'candidates' with columns 'candidate_id', 'name', 'position', and 'vote_count'
+            
+            // Query to get the candidate with maximum votes for each position
+            $query = "SELECT post, id, name, voteCount, pfp
+                      FROM candidates
+                      WHERE (post, voteCount) IN (
+                          SELECT post, MAX(voteCount) AS max_votes
+                          FROM candidates
+                          GROUP BY post
+                      )";
+            
+            $result = mysqli_query($conn, $query);
+            
+            if ($result) {
+                // Fetch and display results
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $post = $row['post'];
+                    $candidateId = $row['id'];
+                    $candidateImage = $row['pfp'];
+                    $candidateName = $row['name'];
+                    $voteCount = $row['voteCount'];
+            ?>
+            
+            <div class="row col-12">
+                <div class="card" style="width: 18rem;">
+                    <img src="<?=$candidateImage?>" class="card-img-top" alt="<?=$candidateImage?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?=$candidateName?></h5>
+                        <p class="card-text"><?=$post?></p>
+                        <h3 class="card-title"><?=$voteCount?></h3>
+                    </div>
+                </div>
             </div>
+            <?php
+                }
+            } else {
+                echo "Error in fetching results: " . mysqli_error($conn);
+            }
+            ?>
+
+
             <?php
                 }
             }
