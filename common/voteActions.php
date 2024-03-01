@@ -14,8 +14,8 @@ if (isset($_POST['startElection'])) {
     $stmt = mysqli_prepare($conn, $startElection);
     mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
     $result = mysqli_stmt_execute($stmt);
-    echo "election started";
-    // header("Location:../users/successVote.php");
+    $_SESSION['successMessage']="The Election has been started.";
+    header("Location:../admin/admin.php");
     exit();
 }
 ?>
@@ -27,8 +27,8 @@ if (isset($_POST['stopElection'])) {
     $stmt = mysqli_prepare($conn, $stopElection);
     mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
     $result = mysqli_stmt_execute($stmt);
-    echo "election has stopped";
-    // header("Location:../users/successVote.php");
+    $_SESSION['successMessage']="The Election has ended.";
+    header("Location:../admin/admin.php");
     exit();
 }
 ?>
@@ -40,8 +40,8 @@ if (isset($_POST['declareResults'])) {
     $stmt = mysqli_prepare($conn, $declareResults);
     mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
     $result = mysqli_stmt_execute($stmt);
-    echo "election has stopped";
-    // header("Location:../users/successVote.php");
+    $_SESSION['successMessage']="The ELection Results have been declared.";
+    header("Location:../admin/admin.php");
     exit();
 }
 ?>
@@ -50,39 +50,10 @@ if (isset($_POST['declareResults'])) {
 
 <?php
 if (isset($_POST['submitVote'])) {
-    // add vote to vote table
-
-    // Retrieve voter ID and timestamp
-    // $voterId = ($_SESSION['id']);
-    // $timestamp = date('Y-m-d H:i:s');
-    
-    // Iterate through post positions and insert into the database
-    // $positions = ['General Secretary', 'Joint Secretary', 'Sports Secretary', 'Cultural Secretary'];
-    // foreach ($positions as $position) {
-    //     if (isset($_POST[$position])) {
-    //         $candidateId = $_POST[$position];
-    
-    //         // Add debugging statements
-    //         echo "Voter ID: $voterId<br>";
-    //         echo "Timestamp: $timestamp<br>";
-    //         echo "Position: $position<br>";
-    //         echo "Candidate ID: $candidateId<br>";
-    
-    //         // Insert into the votes table
-    //         $query = "INSERT INTO votes (voter_id, time, `$position`, `$position`) VALUES ('$voterId', '$timestamp', '$candidateId', '$candidateId')";
-    //         $result = mysqli_query($conn, $query);
-    
-    //         if (!$result) {
-    //             echo "Error: " . mysqli_error($conn);
-    //         }
-    //     }
-    // }
-
     $updateVoteFlag = "UPDATE login SET voteStatus=1 WHERE id=?";
     $stmt = mysqli_prepare($conn, $updateVoteFlag);
     mysqli_stmt_bind_param($stmt, 's', $_SESSION['id']);
     $result = mysqli_stmt_execute($stmt);
-
 
     // Add Vote count
     foreach ($_POST as $key => $value) {

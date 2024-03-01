@@ -47,6 +47,16 @@ if(isset($_POST['userid']) && isset($_POST['password'])){
                 $_SESSION['voteStatus']="notVoted";
                 $candStatus="notSubmitted";
                 $_SESSION['loginMessage']="Logged in Successfully";
+                // checking election status
+                $electionSql = "SELECT voteStatus FROM login where id='admin'";
+                $electionResult = mysqli_query($conn,$electionSql);
+                $electionRow = mysqli_fetch_assoc($electionResult);
+                if($electionRow['voteStatus']==1){
+                    $_SESSION['votingMessage']='Election has started! You can now cast your votes.';
+                }
+                elseif($electionRow['voteStatus']==2){
+                    $_SESSION['votingMessage']='Election has ended! Wait for further notices.';
+                }
                 header("Location:../users/user.php");
                 exit();
             }
