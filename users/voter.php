@@ -166,6 +166,10 @@ if(isset($_SESSION['id']))
         displayCandidates($position, $conn);
       ?>
 
+            <hr class='border border-dark opacity-100'>
+            <div class="col-md-12 text-center mt-4">
+              <button type="button" class="btn btn-success" name="submitVote" data-bs-toggle="modal" data-bs-target="#confirmSubmit">Submit Vote</button>
+            </div>
       </form>
     </div>
 

@@ -63,8 +63,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Are you sure to stop the election?<br><br>
-                            All votes will be counted and results will be displayed!
+                            Are you sure to stop the election?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -91,7 +90,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Are you sure to stop the election?<br><br>
                             All votes will be counted and results will be displayed!
                         </div>
                         <div class="modal-footer">
@@ -104,6 +102,50 @@
         </form>
     <?php
             }
+        // See Voting Results
+        else if($admin['voteStatus']==3){
+            
+            $query = "SELECT post, id, name, voteCount, pfp FROM candidates
+                      WHERE (post, voteCount) IN (
+                          SELECT post, MAX(voteCount) AS max_votes FROM candidates
+                          GROUP BY post
+                      )         
+                        ORDER BY CASE post
+                            WHEN 'General Secretary' THEN 1
+                            WHEN 'Joint Secretary' THEN 2
+                            WHEN 'Sports Secretary' THEN 3
+                            WHEN 'Cultural Secretary' THEN 4
+                            ELSE 5 END";
+            
+            $result = mysqli_query($conn, $query);
+    ?>
+        <div class="container">
+            <h1 class="text-center">Final Results</h1>
+            <div class='card-body d-flex justify-content-evenly row'>
+            <?php
+            if ($result) {
+                // Fetch and display results
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $post = $row['post'];
+                    $candidateId = $row['id'];
+                    $candidateImage = $row['pfp'];
+                    $candidateName = $row['name'];
+                    $voteCount = $row['voteCount'];
+            ?>
+                <div class='card col-md-3 col-sm-6 col-12' style="width: 16rem;">
+                    <img src="<?=$candidateImage?>" class="h-50 card-img-top" alt="<?=$candidateImage?>">
+                    <div class="card-body">
+                        <h3 class="card-title"><?=$candidateName?></h3>
+                        <h5 class="card-text"><?=$post?></h5>
+                        <h3 class="card-title"><?=$voteCount?></h3>
+                    </div>
+                </div>
+            <?php } }?>
+            </div>
+        </div>
+    <?php
+        }
+        echo "<h1 class='text-center mt-5'>Election Stats</h1>";
         function displayChart($position, $postID, $conn)
         {
             $voteChart = array();

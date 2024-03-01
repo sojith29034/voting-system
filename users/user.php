@@ -128,41 +128,45 @@ include '../common/navbar.php';
 
 
             <?php
-            // Assuming you have a table named 'candidates' with columns 'candidate_id', 'name', 'position', and 'vote_count'
-            
-            // Query to get the candidate with maximum votes for each position
-            $query = "SELECT post, id, name, voteCount, pfp
-                      FROM candidates
+            $query = "SELECT post, id, name, voteCount, pfp FROM candidates
                       WHERE (post, voteCount) IN (
-                          SELECT post, MAX(voteCount) AS max_votes
-                          FROM candidates
+                          SELECT post, MAX(voteCount) AS max_votes FROM candidates
                           GROUP BY post
-                      )";
+                      )         
+                        ORDER BY CASE post
+                            WHEN 'General Secretary' THEN 1
+                            WHEN 'Joint Secretary' THEN 2
+                            WHEN 'Sports Secretary' THEN 3
+                            WHEN 'Cultural Secretary' THEN 4
+                            ELSE 5 END";
             
             $result = mysqli_query($conn, $query);
-            
-            if ($result) {
-                // Fetch and display results
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $post = $row['post'];
-                    $candidateId = $row['id'];
-                    $candidateImage = $row['pfp'];
-                    $candidateName = $row['name'];
-                    $voteCount = $row['voteCount'];
             ?>
             
-            <div class="row col-12">
-                <div class="card" style="width: 18rem;">
-                    <img src="<?=$candidateImage?>" class="card-img-top" alt="<?=$candidateImage?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$candidateName?></h5>
-                        <p class="card-text"><?=$post?></p>
-                        <h3 class="card-title"><?=$voteCount?></h3>
+            <div class="container">
+                <div class='card-body d-flex justify-content-evenly row'>
+                <?php
+                if ($result) {
+                    // Fetch and display results
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $post = $row['post'];
+                        $candidateId = $row['id'];
+                        $candidateImage = $row['pfp'];
+                        $candidateName = $row['name'];
+                        $voteCount = $row['voteCount'];
+                ?>
+                    <div class='card col-md-3 col-sm-6 col-12' style="width: 18rem;">
+                        <img src="<?=$candidateImage?>" class="h-50 card-img-top" alt="<?=$candidateImage?>">
+                        <div class="card-body">
+                            <h3 class="card-title"><?=$candidateName?></h3>
+                            <h5 class="card-text"><?=$post?></h5>
+                            <h3 class="card-title"><?=$voteCount?></h3>
+                        </div>
                     </div>
+                <?php } ?>
                 </div>
             </div>
             <?php
-                }
             } else {
                 echo "Error in fetching results: " . mysqli_error($conn);
             }
@@ -173,7 +177,6 @@ include '../common/navbar.php';
                 }
             }
             ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
 
